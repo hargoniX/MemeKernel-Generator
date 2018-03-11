@@ -70,11 +70,17 @@ END
 
   # get kernel version
   make prepare
+  echo 'Enter path to the bootsplash png(size 80x80): '
+  read bootsplash
+  pngtopnm ${bootsplash} | ppmquant -fs 223| pnmtoplainpnm > logo_linux_clut224.ppm
+  cp logo_linux_clut224.ppm drivers/video/logo/logo_linux_clut224.ppm
+  echo "copied bootsplash"
+
 
   # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
   #make menuconfig # CLI menu for configuration
-  #make nconfig # new CLI menu for configuration
+  make nconfig # new CLI menu for configuration
   #make xconfig # X-based configuration
   #make oldconfig # using old config from previous kernel version
   # ... or manually edit .config
